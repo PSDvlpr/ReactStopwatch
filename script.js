@@ -7,7 +7,6 @@ class Stopwatch extends React.Component {
       seconds: 0,
       miliseconds: 0
     };
-  }
 
 
   print = () => {
@@ -72,7 +71,7 @@ class Stopwatch extends React.Component {
 
   reset = () => {
     this.setState({
-      running: false
+      running: false,
       minutes: 0,
       seconds: 0,
       miliseconds: 0
@@ -81,24 +80,27 @@ class Stopwatch extends React.Component {
     this.print();
   }
 
-  add = () => {
-    const list = document.getElementById('results');
-    const element = document.createElement('li');
-    const id = list.children.length + 1;
-    const rslt = this.format(this.times);
 
-    element.innerHTML = rslt;
-    element.setAttribute('id', 'result' + id);
-
-    const removeButton = document.createElement('button');
-
-    removeButton.classList.add('button')
-    removeButton.innerHTML = 'X';
-    removeButton.addEventListener('click', () => element.remove(this.id));
-    element.appendChild(removeButton);
-
-    list.appendChild(element);
-    }
+  // TO DO
+  //
+  // add = () => {
+  //   const list = document.getElementById('results');
+  //   const element = document.createElement('li');
+  //   const id = list.children.length + 1;
+  //   const rslt = this.format(this.times);
+  //
+  //   element.innerHTML = rslt;
+  //   element.setAttribute('id', 'result' + id);
+  //
+  //   const removeButton = document.createElement('button');
+  //
+  //   removeButton.classList.add('button')
+  //   removeButton.innerHTML = 'X';
+  //   removeButton.addEventListener('click', () => element.remove(this.id));
+  //   element.appendChild(removeButton);
+  //
+  //   list.appendChild(element);
+  //   }
 
   clear = () => {
     const list = document.getElementById('results');
@@ -107,23 +109,24 @@ class Stopwatch extends React.Component {
       list.removeChild(list.firstChild);
     }
   }
+}
 
-  render() {
-    return (
-      <div className="container">
-        <nav className="controls">
-          <a href="#body" className="button" onClick={this.start}>Start</a>
-          <a href="#" className="button" id="stop" onClick={this.stop}>Pause</a>
-          <a href="#" className="button" id="reset" onClick={this.reset}>Reset</a>
-        </nav>
-        <div className="stopwatch">{this.print}</div>
-          <a href="#" className="button" id="add" onClick={this.add}>Add result</a>
-          <a href="#" className="button" id="clear" onClick={this.clear}>Clear List</a>
-          <ul className="results" id="results"></ul>
-      </div>
+render() {
+  return (
+    <div className="container">
+      <nav className="controls">
+        <a href="#body" className="button" onClick={this.start}>Start</a>
+        <a href="#" className="button" id="stop" onClick={this.stop}>Pause</a>
+        <a href="#" className="button" id="reset" onClick={this.reset}>Reset</a>
+      </nav>
+      <div className="stopwatch">{this.print}</div>
+        <a href="#" className="button" id="add" onClick={this.add}>Add result</a>
+        <a href="#" className="button" id="clear" onClick={this.clear}>Clear List</a>
+        <ul className="results" id="results"></ul>
+    </div>
+  );
+}
 
-      );
-  }
 }
 
     ReactDOM.render(
