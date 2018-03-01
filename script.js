@@ -37,9 +37,9 @@ class Stopwatch extends React.Component {
 
   step = () => {
     if (!this.state.running) return;
-    let miliseconds = this.state.miliseconds;
-    let seconds = this.state.seconds;
     let minutes = this.state.minutes;
+    let seconds = this.state.seconds;
+    let miliseconds = this.state.miliseconds;
 
     miliseconds++;
     if (miliseconds >=100) {
@@ -102,13 +102,13 @@ class Stopwatch extends React.Component {
   //   list.appendChild(element);
   //   }
 
-  clear = () => {
-    const list = document.getElementById('results');
-
-    while(list.firstChild) {
-      list.removeChild(list.firstChild);
-    }
-  }
+  // clear = () => {
+  //   const list = document.getElementById('results');
+  //
+  //   while(list.firstChild) {
+  //     list.removeChild(list.firstChild);
+  //   }
+  // }
 }
 
 render() {
@@ -129,7 +129,6 @@ render() {
 
 }
 
-    ReactDOM.render(
-            <Stopwatch />,
-            document.getElementById('body')
-        );
+ReactDOM.render(
+        <Stopwatch />,
+        document.getElementById('body'));
