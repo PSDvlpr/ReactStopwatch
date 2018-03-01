@@ -80,35 +80,32 @@ class Stopwatch extends React.Component {
     this.print();
   }
 
+  add = () => {
+    const list = document.getElementById('results');
+    const element = document.createElement('li');
+    const id = list.children.length + 1;
+    const rslt = this.format(this.state);
 
-  // TO DO
-  //
-  // add = () => {
-  //   const list = document.getElementById('results');
-  //   const element = document.createElement('li');
-  //   const id = list.children.length + 1;
-  //   const rslt = this.format(this.times);
-  //
-  //   element.innerHTML = rslt;
-  //   element.setAttribute('id', 'result' + id);
-  //
-  //   const removeButton = document.createElement('button');
-  //
-  //   removeButton.classList.add('button')
-  //   removeButton.innerHTML = 'X';
-  //   removeButton.addEventListener('click', () => element.remove(this.id));
-  //   element.appendChild(removeButton);
-  //
-  //   list.appendChild(element);
-  //   }
+    element.innerHTML = rslt;
+    element.setAttribute('id', 'result' + id);
 
-  // clear = () => {
-  //   const list = document.getElementById('results');
-  //
-  //   while(list.firstChild) {
-  //     list.removeChild(list.firstChild);
-  //   }
-  // }
+    const removeButton = document.createElement('button');
+
+    removeButton.classList.add('button')
+    removeButton.innerHTML = 'X';
+    removeButton.addEventListener('click', () => element.remove(this.id));
+    element.appendChild(removeButton);
+
+    list.appendChild(element);
+  }
+
+  clear = () => {
+    const list = document.getElementById('results');
+
+    while(list.firstChild) {
+      list.removeChild(list.firstChild);
+    }
+  }
 }
 
 render() {
