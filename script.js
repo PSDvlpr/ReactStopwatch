@@ -14,15 +14,15 @@ class Stopwatch extends React.Component {
   }
 
   format = (props) => {
-    function pad0(value) {
-      let result = value.toString();
-      if (result.length < 2) {
-        result = '0' + result;
-      }
-      return result;
-    }
-
     return `${pad0(this.state.minutes)}:${pad0(this.state.seconds)}:${pad0(Math.floor(this.state.miliseconds))}`;
+  }
+
+  pad0 = (value) => {
+       let result = value.toString();
+       if (result.length < 2) {
+         result = '0' + result;
+       }
+       return result;
   }
 
 
