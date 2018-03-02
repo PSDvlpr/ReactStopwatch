@@ -69,7 +69,6 @@ var Stopwatch = function (_React$Component) {
           return _this2.step();
         }, 10);
       }
-      console.log('started');
     }
   }, {
     key: 'step',
