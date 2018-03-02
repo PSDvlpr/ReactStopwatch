@@ -8,16 +8,28 @@ class Stopwatch extends React.Component {
       miliseconds: 0
     };
 
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
+    this.reset = this.reset.bind(this);
+    this.add = this.add.bind(this);
+    this.clear = this.clear.bind(this);
+    this.pad0 = this.pad0.bind(this);
+    this.print = this.print.bind(this);
+    this.step = this.step.bind(this);
 
-  print = () => {
-    return this.format(this.state);
+}
+
+  print() {
+    const swatch = document.querySelector('.stopwatch');
+    let stopwatch = this.format(this.state);
+    swatch.innerHTML = stopwatch;
   }
 
-  format = (props) => {
-    return `${pad0(this.state.minutes)}:${pad0(this.state.seconds)}:${pad0(Math.floor(this.state.miliseconds))}`;
+  format(props) {
+    return `${this.pad0(this.state.minutes)}:${this.pad0(this.state.seconds)}:${this.pad0(Math.floor(this.state.miliseconds))}`;
   }
 
-  pad0 = (value) => {
+  pad0(value) {
        let result = value.toString();
        if (result.length < 2) {
          result = '0' + result;
@@ -26,16 +38,17 @@ class Stopwatch extends React.Component {
   }
 
 
-  start = () => {
+  start() {
     if (!this.state.running) {
       this.setState({
         running: true
       });
       this.watch = setInterval(() => this.step(), 10);
     }
+    console.log('started');
   }
 
-  step = () => {
+  step() {
     if (!this.state.running) return;
     let minutes = this.state.minutes;
     let seconds = this.state.seconds;
@@ -61,7 +74,7 @@ class Stopwatch extends React.Component {
     this.print();
   }
 
-  stop = () => {
+  stop() {
     this.setState({
       running: false
     });
@@ -69,7 +82,7 @@ class Stopwatch extends React.Component {
   }
 
 
-  reset = () => {
+  reset() {
     this.setState({
       running: false,
       minutes: 0,
@@ -80,7 +93,7 @@ class Stopwatch extends React.Component {
     this.print();
   }
 
-  add = () => {
+  add() {
     const list = document.getElementById('results');
     const element = document.createElement('li');
     const id = list.children.length + 1;
@@ -99,14 +112,14 @@ class Stopwatch extends React.Component {
     list.appendChild(element);
   }
 
-  clear = () => {
+  clear() {
     const list = document.getElementById('results');
 
     while(list.firstChild) {
       list.removeChild(list.firstChild);
     }
   }
-}
+
 
 render() {
   return (
@@ -123,7 +136,6 @@ render() {
     </div>
   );
 }
-
 }
 
 ReactDOM.render(

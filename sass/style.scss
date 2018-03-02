@@ -3,9 +3,16 @@ $defaultColor: #4A4C54;
 
 
 body {
+  padding: 0;
+  margin: 0;
+}
+
+#body {
+  height: 100vh;
   background: $defaultBackground;
   color: $defaultColor;
   transition: background linear .5s;
+  margin: 0;
 }
 
 a {
