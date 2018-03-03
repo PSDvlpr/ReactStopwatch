@@ -108,21 +108,21 @@ class Stopwatch extends React.Component {
     }
 
 
-render() {
-  return (
-    <div className="container">
-      <nav className="controls">
-        <a href="#body" className="button" onClick={this.start}>Start</a>
-        <a href="#" className="button" id="stop" onClick={this.stop}>Pause</a>
-        <a href="#" className="button" id="reset" onClick={this.reset}>Reset</a>
-      </nav>
-      <div className="stopwatch">{this.print()}</div>
-        <a href="#" className="button" id="add" onClick={this.add}>Add result</a>
-        <a href="#" className="button" id="clear" onClick={this.clear}>Clear List</a>
-        <ResultList resultArr = {this.state.results} />
-    </div>
-  );
-}
+  render() {
+    return (
+      <div className="container">
+        <nav className="controls">
+          <a href="#body" className="button" onClick={this.start}>Start</a>
+          <a href="#" className="button" id="stop" onClick={this.stop}>Pause</a>
+          <a href="#" className="button" id="reset" onClick={this.reset}>Reset</a>
+        </nav>
+        <div className="stopwatch">{this.print()}</div>
+          <a href="#" className="button" id="add" onClick={this.add}>Add result</a>
+          <a href="#" className="button" id="clear" onClick={this.clear}>Clear List</a>
+          <ResultList resultArr = {this.state.results} />
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(
