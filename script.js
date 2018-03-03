@@ -141,10 +141,15 @@ class ResultList extends React.Component {
 }
 
 class Result extends React.Component {
+  /* remove() {
+    .remove(this.id)
+  } */
+
   render() {
+
     return (
       <li id={this.props.key}>{this.props.resultItem}
-          <button className="button"> X </button>
+          <button className="button" /* onClick={this.remove} */> X </button>
       </li>
     );
   }
