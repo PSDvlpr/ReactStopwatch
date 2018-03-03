@@ -185,4 +185,62 @@ var Stopwatch = function (_React$Component) {
   return Stopwatch;
 }(React.Component);
 
+var ResultList = function (_React$Component2) {
+  _inherits(ResultList, _React$Component2);
+
+  function ResultList() {
+    _classCallCheck(this, ResultList);
+
+    return _possibleConstructorReturn(this, (ResultList.__proto__ || Object.getPrototypeOf(ResultList)).apply(this, arguments));
+  }
+
+  _createClass(ResultList, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'ul',
+        null,
+        this.resultArr
+      );
+    }
+  }, {
+    key: 'resultArr',
+    get: function get() {
+      return this.props.resultArr.map(function (result, i) {
+        return React.createElement(Result, { key: i, resultItem: result });
+      });
+    }
+  }]);
+
+  return ResultList;
+}(React.Component);
+
+var Result = function (_React$Component3) {
+  _inherits(Result, _React$Component3);
+
+  function Result() {
+    _classCallCheck(this, Result);
+
+    return _possibleConstructorReturn(this, (Result.__proto__ || Object.getPrototypeOf(Result)).apply(this, arguments));
+  }
+
+  _createClass(Result, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'li',
+        { id: this.props.key },
+        this.props.resultItem,
+        React.createElement(
+          'button',
+          { className: 'button' },
+          ' X '
+        )
+      );
+    }
+  }]);
+
+  return Result;
+}(React.Component);
+
 ReactDOM.render(React.createElement(Stopwatch, null), document.getElementById('body'));

@@ -126,6 +126,30 @@ class Stopwatch extends React.Component {
   }
 }
 
+class ResultList extends React.Component {
+  get resultArr() {
+    return this.props.resultArr.map((result, i) => <Result key={i} resultItem={result} />);
+  }
+
+  render() {
+    return (
+      <ul>
+        {this.resultArr}
+      </ul>
+    );
+  }
+}
+
+class Result extends React.Component {
+  render() {
+    return (
+      <li id={this.props.key}>{this.props.resultItem}
+          <button className="button"> X </button>
+      </li>
+    );
+  }
+}
+
 ReactDOM.render(
         <Stopwatch />,
         document.getElementById('body'));
