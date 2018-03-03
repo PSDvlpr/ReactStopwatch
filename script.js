@@ -5,7 +5,8 @@ class Stopwatch extends React.Component {
       running: false,
       minutes: 0,
       seconds: 0,
-      miliseconds: 0
+      miliseconds: 0,
+      results: []
     };
 
     this.start = this.start.bind(this);
@@ -20,13 +21,12 @@ class Stopwatch extends React.Component {
 }
 
   print() {
-    const swatch = document.querySelector('.stopwatch');
-    let stopwatch = this.format(this.state);
-    swatch.innerHTML = stopwatch;
+    return  this.format(this.state);
   }
 
   format(props) {
-    return `${this.pad0(this.state.minutes)}:${this.pad0(this.state.seconds)}:${this.pad0(Math.floor(this.state.miliseconds))}`;
+    let stpw = this.pad0(this.state.minutes) + ' : ' + this.pad0(this.state.seconds) + ' : ' + this.pad0(this.state.miliseconds);
+    return stpw;
   }
 
   pad0(value) {
@@ -87,37 +87,25 @@ class Stopwatch extends React.Component {
       minutes: 0,
       seconds: 0,
       miliseconds: 0
+
     });
     clearInterval(this.watch);
     this.print();
   }
 
   add() {
-    const list = document.getElementById('results');
-    const element = document.createElement('li');
-    const id = list.children.length + 1;
-    const rslt = this.format(this.state);
+    let arr = this.state.results;
 
-    element.innerHTML = rslt;
-    element.setAttribute('id', 'result' + id);
-
-    const removeButton = document.createElement('button');
-
-    removeButton.classList.add('button')
-    removeButton.innerHTML = 'X';
-    removeButton.addEventListener('click', () => element.remove(this.id));
-    element.appendChild(removeButton);
-
-    list.appendChild(element);
+    this.setState({
+      results: [...arr, this.format(this.state)]
+    })
   }
 
   clear() {
-    const list = document.getElementById('results');
-
-    while(list.firstChild) {
-      list.removeChild(list.firstChild);
+    this.setState({
+      results: []
+    });
     }
-  }
 
 
 render() {
@@ -128,10 +116,10 @@ render() {
         <a href="#" className="button" id="stop" onClick={this.stop}>Pause</a>
         <a href="#" className="button" id="reset" onClick={this.reset}>Reset</a>
       </nav>
-      <div className="stopwatch">{this.print}</div>
+      <div className="stopwatch">{this.print()}</div>
         <a href="#" className="button" id="add" onClick={this.add}>Add result</a>
         <a href="#" className="button" id="clear" onClick={this.clear}>Clear List</a>
-        <ul className="results" id="results"></ul>
+        <ResultList resultArr = {this.state.results} />
     </div>
   );
 }

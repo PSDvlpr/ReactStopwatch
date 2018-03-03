@@ -2,6 +2,8 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -20,7 +22,8 @@ var Stopwatch = function (_React$Component) {
       running: false,
       minutes: 0,
       seconds: 0,
-      miliseconds: 0
+      miliseconds: 0,
+      results: []
     };
 
     _this.start = _this.start.bind(_this);
@@ -38,14 +41,13 @@ var Stopwatch = function (_React$Component) {
   _createClass(Stopwatch, [{
     key: 'print',
     value: function print() {
-      var swatch = document.querySelector('.stopwatch');
-      var stopwatch = this.format(this.state);
-      swatch.innerHTML = stopwatch;
+      return this.format(this.state);
     }
   }, {
     key: 'format',
     value: function format(props) {
-      return this.pad0(this.state.minutes) + ':' + this.pad0(this.state.seconds) + ':' + this.pad0(Math.floor(this.state.miliseconds));
+      var stpw = this.pad0(this.state.minutes) + ' : ' + this.pad0(this.state.seconds) + ' : ' + this.pad0(this.state.miliseconds);
+      return stpw;
     }
   }, {
     key: 'pad0',
@@ -113,6 +115,7 @@ var Stopwatch = function (_React$Component) {
         minutes: 0,
         seconds: 0,
         miliseconds: 0
+
       });
       clearInterval(this.watch);
       this.print();
@@ -120,35 +123,18 @@ var Stopwatch = function (_React$Component) {
   }, {
     key: 'add',
     value: function add() {
-      var _this3 = this;
+      var arr = this.state.results;
 
-      var list = document.getElementById('results');
-      var element = document.createElement('li');
-      var id = list.children.length + 1;
-      var rslt = this.format(this.state);
-
-      element.innerHTML = rslt;
-      element.setAttribute('id', 'result' + id);
-
-      var removeButton = document.createElement('button');
-
-      removeButton.classList.add('button');
-      removeButton.innerHTML = 'X';
-      removeButton.addEventListener('click', function () {
-        return element.remove(_this3.id);
+      this.setState({
+        results: [].concat(_toConsumableArray(arr), [this.format(this.state)])
       });
-      element.appendChild(removeButton);
-
-      list.appendChild(element);
     }
   }, {
     key: 'clear',
     value: function clear() {
-      var list = document.getElementById('results');
-
-      while (list.firstChild) {
-        list.removeChild(list.firstChild);
-      }
+      this.setState({
+        results: []
+      });
     }
   }, {
     key: 'render',
@@ -178,7 +164,7 @@ var Stopwatch = function (_React$Component) {
         React.createElement(
           'div',
           { className: 'stopwatch' },
-          this.print
+          this.print()
         ),
         React.createElement(
           'a',
@@ -190,7 +176,7 @@ var Stopwatch = function (_React$Component) {
           { href: '#', className: 'button', id: 'clear', onClick: this.clear },
           'Clear List'
         ),
-        React.createElement('ul', { className: 'results', id: 'results' })
+        React.createElement(ResultList, { resultArr: this.state.results })
       );
     }
   }]);
