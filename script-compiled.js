@@ -124,9 +124,10 @@ var Stopwatch = function (_React$Component) {
     key: 'add',
     value: function add() {
       var arr = this.state.results;
+      var arrEl = this.format(this.state);
 
       this.setState({
-        results: [].concat(_toConsumableArray(arr), [this.format(this.state)])
+        results: [].concat(_toConsumableArray(arr), [arrEl])
       });
     }
   }, {

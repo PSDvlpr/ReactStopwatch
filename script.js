@@ -95,9 +95,10 @@ class Stopwatch extends React.Component {
 
   add() {
     let arr = this.state.results;
+    let arrEl = this.format(this.state);
 
     this.setState({
-      results: [...arr, this.format(this.state)]
+      results: [...arr, arrEl]
     })
   }
 
