@@ -32,22 +32,15 @@ var Stopwatch = function (_React$Component) {
     _this.add = _this.add.bind(_this);
     _this.clear = _this.clear.bind(_this);
     _this.pad0 = _this.pad0.bind(_this);
-    // this.print = this.print.bind(this);
     _this.step = _this.step.bind(_this);
+    _this.remove = _this.remove.bind(_this);
 
     return _this;
   }
 
-  // print() {
-  //   return  this.format(this.state);
-  // }
-
   _createClass(Stopwatch, [{
     key: "format",
     value: function format(props) {
-      // let stpw = this.pad0(this.state.minutes) + ' : ' + this.pad0(this.state.seconds) + ' : ' + this.pad0(this.state.miliseconds);
-      // return stpw;
-
       return this.pad0(this.state.minutes) + ":" + this.pad0(this.state.seconds) + ":" + this.pad0(Math.floor(this.state.miliseconds));
     }
   }, {
@@ -77,6 +70,7 @@ var Stopwatch = function (_React$Component) {
     key: "step",
     value: function step() {
       if (!this.state.running) return;
+
       var minutes = this.state.minutes;
       var seconds = this.state.seconds;
       var miliseconds = this.state.miliseconds;
@@ -97,8 +91,6 @@ var Stopwatch = function (_React$Component) {
         seconds: seconds,
         miliseconds: miliseconds
       });
-
-      // this.print();
     }
   }, {
     key: "stop",
@@ -119,7 +111,6 @@ var Stopwatch = function (_React$Component) {
 
       });
       clearInterval(this.watch);
-      // this.print();
     }
   }, {
     key: "add",
@@ -136,6 +127,13 @@ var Stopwatch = function (_React$Component) {
     value: function clear() {
       this.setState({
         results: []
+      });
+    }
+  }, {
+    key: "remove",
+    value: function remove(index) {
+      this.setState({
+        results: [].concat(_toConsumableArray(this.state.results.slice(0, index)), _toConsumableArray(this.state.results.slice(index + 1)))
       });
     }
   }, {
@@ -178,7 +176,7 @@ var Stopwatch = function (_React$Component) {
           { href: "#", className: "button", id: "clear", onClick: this.clear },
           "Clear List"
         ),
-        React.createElement(ResultList, { resultArr: this.state.results })
+        React.createElement(ResultList, { resultArr: this.state.results, remove: this.remove })
       );
     }
   }]);
@@ -207,8 +205,12 @@ var ResultList = function (_React$Component2) {
   }, {
     key: "resultArr",
     get: function get() {
+      var _this4 = this;
+
       return this.props.resultArr.map(function (result, i) {
-        return React.createElement(Result, { key: i, resultItem: result });
+        return React.createElement(Result, { key: i, resultItem: result, remove: function remove() {
+            return _this4.props.remove(i);
+          } });
       });
     }
   }]);
@@ -227,20 +229,14 @@ var Result = function (_React$Component3) {
 
   _createClass(Result, [{
     key: "render",
-
-    /* remove() {
-      .remove(this.id)
-    } */
-
     value: function render() {
-
       return React.createElement(
         "li",
         { id: this.props.resultItem },
         this.props.resultItem,
         React.createElement(
           "button",
-          { className: "button" /* onClick={this.remove} */ },
+          { className: "button", onClick: this.props.remove },
           " X "
         )
       );

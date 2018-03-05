@@ -15,30 +15,22 @@ class Stopwatch extends React.Component {
     this.add = this.add.bind(this);
     this.clear = this.clear.bind(this);
     this.pad0 = this.pad0.bind(this);
-    // this.print = this.print.bind(this);
     this.step = this.step.bind(this);
+    this.remove = this.remove.bind(this);
 
-}
-
-  // print() {
-  //   return  this.format(this.state);
-  // }
+  }
 
   format(props) {
-    // let stpw = this.pad0(this.state.minutes) + ' : ' + this.pad0(this.state.seconds) + ' : ' + this.pad0(this.state.miliseconds);
-    // return stpw;
-
     return `${this.pad0(this.state.minutes)}:${this.pad0(this.state.seconds)}:${this.pad0(Math.floor(this.state.miliseconds))}`;
   }
 
   pad0(value) {
-       let result = value.toString();
-       if (result.length < 2) {
-         result = '0' + result;
-       }
-       return result;
+    let result = value.toString();
+    if (result.length < 2) {
+      result = '0' + result;
+    }
+    return result;
   }
-
 
   start() {
     if (!this.state.running) {
@@ -51,6 +43,7 @@ class Stopwatch extends React.Component {
 
   step() {
     if (!this.state.running) return;
+
     let minutes = this.state.minutes;
     let seconds = this.state.seconds;
     let miliseconds = this.state.miliseconds;
@@ -70,9 +63,7 @@ class Stopwatch extends React.Component {
       minutes,
       seconds,
       miliseconds
-    })
-
-    // this.print();
+    });
   }
 
   stop() {
@@ -92,7 +83,6 @@ class Stopwatch extends React.Component {
 
     });
     clearInterval(this.watch);
-    // this.print();
   }
 
   add() {
@@ -101,15 +91,20 @@ class Stopwatch extends React.Component {
 
     this.setState({
       results: [...arr, arrEl]
-    })
+    });
   }
 
   clear() {
     this.setState({
       results: []
     });
-    }
+  }
 
+  remove(index) {
+    this.setState({
+      results: [...this.state.results.slice(0, index), ...this.state.results.slice(index+1)]
+    });
+  }
 
   render() {
     return (
@@ -120,9 +115,9 @@ class Stopwatch extends React.Component {
           <a href="#" className="button" id="reset" onClick={this.reset}>Reset</a>
         </nav>
         <div className="stopwatch">{this.format()}</div>
-          <a href="#" className="button" id="add" onClick={this.add}>Add result</a>
-          <a href="#" className="button" id="clear" onClick={this.clear}>Clear List</a>
-          <ResultList resultArr = {this.state.results} />
+        <a href="#" className="button" id="add" onClick={this.add}>Add result</a>
+        <a href="#" className="button" id="clear" onClick={this.clear}>Clear List</a>
+        <ResultList resultArr = {this.state.results} remove={this.remove} />
       </div>
     );
   }
@@ -130,7 +125,7 @@ class Stopwatch extends React.Component {
 
 class ResultList extends React.Component {
   get resultArr() {
-    return this.props.resultArr.map((result, i) => <Result key={i} resultItem={result} />);
+    return this.props.resultArr.map((result, i) => <Result key={i} resultItem={result} remove={() => this.props.remove(i)} />);
   }
 
   render() {
@@ -143,20 +138,16 @@ class ResultList extends React.Component {
 }
 
 class Result extends React.Component {
-  /* remove() {
-    .remove(this.id)
-  } */
-
   render() {
-
     return (
       <li id={this.props.resultItem}>{this.props.resultItem}
-          <button className="button" /* onClick={this.remove} */> X </button>
+          <button className="button" onClick={this.props.remove}> X </button>
       </li>
     );
   }
 }
 
 ReactDOM.render(
-        <Stopwatch />,
-        document.getElementById('body'));
+  <Stopwatch />,
+  document.getElementById('body')
+);
