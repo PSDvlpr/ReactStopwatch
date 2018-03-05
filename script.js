@@ -150,7 +150,7 @@ class Result extends React.Component {
   render() {
 
     return (
-      <li id={this.props.key}>{this.props.resultItem}
+      <li id={this.props.resultItem}>{this.props.resultItem}
           <button className="button" /* onClick={this.remove} */> X </button>
       </li>
     );

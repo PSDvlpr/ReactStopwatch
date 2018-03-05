@@ -236,7 +236,7 @@ var Result = function (_React$Component3) {
 
       return React.createElement(
         "li",
-        { id: this.props.key },
+        { id: this.props.resultItem },
         this.props.resultItem,
         React.createElement(
           "button",
