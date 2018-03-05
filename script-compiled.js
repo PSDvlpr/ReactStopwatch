@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -32,25 +32,26 @@ var Stopwatch = function (_React$Component) {
     _this.add = _this.add.bind(_this);
     _this.clear = _this.clear.bind(_this);
     _this.pad0 = _this.pad0.bind(_this);
-    _this.print = _this.print.bind(_this);
+    // this.print = this.print.bind(this);
     _this.step = _this.step.bind(_this);
 
     return _this;
   }
 
+  // print() {
+  //   return  this.format(this.state);
+  // }
+
   _createClass(Stopwatch, [{
-    key: 'print',
-    value: function print() {
-      return this.format(this.state);
-    }
-  }, {
-    key: 'format',
+    key: "format",
     value: function format(props) {
-      var stpw = this.pad0(this.state.minutes) + ' : ' + this.pad0(this.state.seconds) + ' : ' + this.pad0(this.state.miliseconds);
-      return stpw;
+      // let stpw = this.pad0(this.state.minutes) + ' : ' + this.pad0(this.state.seconds) + ' : ' + this.pad0(this.state.miliseconds);
+      // return stpw;
+
+      return this.pad0(this.state.minutes) + ":" + this.pad0(this.state.seconds) + ":" + this.pad0(Math.floor(this.state.miliseconds));
     }
   }, {
-    key: 'pad0',
+    key: "pad0",
     value: function pad0(value) {
       var result = value.toString();
       if (result.length < 2) {
@@ -59,7 +60,7 @@ var Stopwatch = function (_React$Component) {
       return result;
     }
   }, {
-    key: 'start',
+    key: "start",
     value: function start() {
       var _this2 = this;
 
@@ -73,7 +74,7 @@ var Stopwatch = function (_React$Component) {
       }
     }
   }, {
-    key: 'step',
+    key: "step",
     value: function step() {
       if (!this.state.running) return;
       var minutes = this.state.minutes;
@@ -97,10 +98,10 @@ var Stopwatch = function (_React$Component) {
         miliseconds: miliseconds
       });
 
-      this.print();
+      // this.print();
     }
   }, {
-    key: 'stop',
+    key: "stop",
     value: function stop() {
       this.setState({
         running: false
@@ -108,7 +109,7 @@ var Stopwatch = function (_React$Component) {
       clearInterval(this.watch);
     }
   }, {
-    key: 'reset',
+    key: "reset",
     value: function reset() {
       this.setState({
         running: false,
@@ -118,10 +119,10 @@ var Stopwatch = function (_React$Component) {
 
       });
       clearInterval(this.watch);
-      this.print();
+      // this.print();
     }
   }, {
-    key: 'add',
+    key: "add",
     value: function add() {
       var arr = this.state.results;
       var arrEl = this.format(this.state);
@@ -131,51 +132,51 @@ var Stopwatch = function (_React$Component) {
       });
     }
   }, {
-    key: 'clear',
+    key: "clear",
     value: function clear() {
       this.setState({
         results: []
       });
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       return React.createElement(
-        'div',
-        { className: 'container' },
+        "div",
+        { className: "container" },
         React.createElement(
-          'nav',
-          { className: 'controls' },
+          "nav",
+          { className: "controls" },
           React.createElement(
-            'a',
-            { href: '#body', className: 'button', onClick: this.start },
-            'Start'
+            "a",
+            { href: "#body", className: "button", onClick: this.start },
+            "Start"
           ),
           React.createElement(
-            'a',
-            { href: '#', className: 'button', id: 'stop', onClick: this.stop },
-            'Pause'
+            "a",
+            { href: "#", className: "button", id: "stop", onClick: this.stop },
+            "Pause"
           ),
           React.createElement(
-            'a',
-            { href: '#', className: 'button', id: 'reset', onClick: this.reset },
-            'Reset'
+            "a",
+            { href: "#", className: "button", id: "reset", onClick: this.reset },
+            "Reset"
           )
         ),
         React.createElement(
-          'div',
-          { className: 'stopwatch' },
-          this.print()
+          "div",
+          { className: "stopwatch" },
+          this.format()
         ),
         React.createElement(
-          'a',
-          { href: '#', className: 'button', id: 'add', onClick: this.add },
-          'Add result'
+          "a",
+          { href: "#", className: "button", id: "add", onClick: this.add },
+          "Add result"
         ),
         React.createElement(
-          'a',
-          { href: '#', className: 'button', id: 'clear', onClick: this.clear },
-          'Clear List'
+          "a",
+          { href: "#", className: "button", id: "clear", onClick: this.clear },
+          "Clear List"
         ),
         React.createElement(ResultList, { resultArr: this.state.results })
       );
@@ -195,16 +196,16 @@ var ResultList = function (_React$Component2) {
   }
 
   _createClass(ResultList, [{
-    key: 'render',
+    key: "render",
     value: function render() {
       return React.createElement(
-        'ul',
+        "ul",
         null,
         this.resultArr
       );
     }
   }, {
-    key: 'resultArr',
+    key: "resultArr",
     get: function get() {
       return this.props.resultArr.map(function (result, i) {
         return React.createElement(Result, { key: i, resultItem: result });
@@ -225,16 +226,22 @@ var Result = function (_React$Component3) {
   }
 
   _createClass(Result, [{
-    key: 'render',
+    key: "render",
+
+    /* remove() {
+      .remove(this.id)
+    } */
+
     value: function render() {
+
       return React.createElement(
-        'li',
+        "li",
         { id: this.props.key },
         this.props.resultItem,
         React.createElement(
-          'button',
-          { className: 'button' },
-          ' X '
+          "button",
+          { className: "button" /* onClick={this.remove} */ },
+          " X "
         )
       );
     }

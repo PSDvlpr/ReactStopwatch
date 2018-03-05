@@ -15,18 +15,20 @@ class Stopwatch extends React.Component {
     this.add = this.add.bind(this);
     this.clear = this.clear.bind(this);
     this.pad0 = this.pad0.bind(this);
-    this.print = this.print.bind(this);
+    // this.print = this.print.bind(this);
     this.step = this.step.bind(this);
 
 }
 
-  print() {
-    return  this.format(this.state);
-  }
+  // print() {
+  //   return  this.format(this.state);
+  // }
 
   format(props) {
-    let stpw = this.pad0(this.state.minutes) + ' : ' + this.pad0(this.state.seconds) + ' : ' + this.pad0(this.state.miliseconds);
-    return stpw;
+    // let stpw = this.pad0(this.state.minutes) + ' : ' + this.pad0(this.state.seconds) + ' : ' + this.pad0(this.state.miliseconds);
+    // return stpw;
+
+    return `${this.pad0(this.state.minutes)}:${this.pad0(this.state.seconds)}:${this.pad0(Math.floor(this.state.miliseconds))}`;
   }
 
   pad0(value) {
@@ -70,7 +72,7 @@ class Stopwatch extends React.Component {
       miliseconds
     })
 
-    this.print();
+    // this.print();
   }
 
   stop() {
@@ -90,7 +92,7 @@ class Stopwatch extends React.Component {
 
     });
     clearInterval(this.watch);
-    this.print();
+    // this.print();
   }
 
   add() {
@@ -117,7 +119,7 @@ class Stopwatch extends React.Component {
           <a href="#" className="button" id="stop" onClick={this.stop}>Pause</a>
           <a href="#" className="button" id="reset" onClick={this.reset}>Reset</a>
         </nav>
-        <div className="stopwatch">{this.print()}</div>
+        <div className="stopwatch">{this.format()}</div>
           <a href="#" className="button" id="add" onClick={this.add}>Add result</a>
           <a href="#" className="button" id="clear" onClick={this.clear}>Clear List</a>
           <ResultList resultArr = {this.state.results} />
